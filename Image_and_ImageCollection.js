@@ -191,3 +191,12 @@ Reducers são o "coração" do Google Earth Engine.
 var L9_mediana = L9.map(aplicarFatoresEscala).median();
 print('IMAGEM MEDIANA DA COLEÇÃO:', L9_mediana);
 Map.addLayer(L9_mediana, vizTrueColor, 'MDIANA DA COLEÇÃO', false);
+
+/* ==================================================================================================================
+OBS.: É relevante entender que a redução apaga o histórico. 
+A rigor, quando trabalhamos com redutores como a mediana, média ou máximo sobre uma ImageCollection, 
+perdemos a informação genuinamente temporal. A imagem resultante que você obtém não representa nenhuma data específica,
+mas sim um cômputo matemático de todas as imagens disponíveis no período analisado. 
+Isso implica que, na prática, se você está interessado em uma informação de data específica (como o NDVI exatamente no dia 15 de março de 2024, ou a temperatura da superfície durante um evento de seca em uma data particular), 
+essa composição temporal NÃO é fidedigna.
+===================================================================================================================== */
