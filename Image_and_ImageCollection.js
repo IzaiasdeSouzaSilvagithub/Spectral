@@ -201,3 +201,47 @@ mas sim um cômputo matemático de todas as imagens disponíveis no período ana
 Isso implica que, na prática, se você está interessado em uma informação de data específica (como o NDVI exatamente no dia 15 de março de 2024, ou a temperatura da superfície durante um evento de seca em uma data particular), 
 essa composição temporal NÃO é fidedigna.
 ===================================================================================================================== */
+
+// 12. CALCULAR NDVI SOBRE A IMAGEM MEDIANA
+// Agora aplicamos a MESMA lógica do NDVI, mas usando a imagem mediana em vez da imagem original.
+var ndviMediana = L9_mediana.expression(
+  '(NIR - RED) / (NIR + RED)', {
+    'NIR': L9_mediana.select('SR_B5'),   // Infravermelho Próximo (Banda 5)
+    'RED': L9_mediana.select('SR_B4')    // Vermelho (Banda 4)
+});
+
+print('NDVI CALCULADO SOBRE A MEDIANA:', ndviMediana);
+print('ESTATÍSTICAS DO NDVI (MEDIANA):', ndviMediana.reduceRegion({
+  reducer: ee.Reducer.mean().combine({
+    reducer2: ee.Reducer.minMax(),
+    sharedInputs: true
+  }),
+  geometry: study_area,
+  scale: 30,
+  bestEffort: true
+}));
+
+// Adicionar NDVI como uma nova banda na imagem mediana
+var medianaComNDVI = L9_mediana.addBands(ndviMediana.rename('NDVI'));
+print('AGEM MEDIANA COM BANDA NDVI:', medianaComNDVI);
+
+
+// 13. VISUALIZAR O NDVI DA MEDIANA NO MAPA
+// ----------------------------------------------------------------------------------------------------------------
+// Configuração de visualização para o NDVI
+
+var vizNDVI_Mediana = {
+  min: -0.2,
+  max: 0.8,
+  palette: [
+    '#0000FF',
+    '#00FFFF',
+    '#FFFFFF',
+    '#90EE90',
+    '#32CD32',
+    '#006400'
+  ]
+};
+
+// Adicionar camada do NDVI da mediana
+Map.addLayer(medianaComNDVI.select('NDVI').clip(study_area), vizNDVI_Mediana, '🌿 NDVI DA MEDIANA', true);
