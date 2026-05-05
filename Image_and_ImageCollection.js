@@ -11,6 +11,7 @@ no tempo ou por algum critério específico.
 
 OBJETIVO: Demonstrar como trabalhar com Image e ImageCollection.
 Dados: Landsat 9 (OLI/TIRS) - Collection 2, Tier 1.
+Maiores informações sobre os dados: https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LC09_C02_T1_L2?hl=pt-br
 ===================================================================================================================== */
 
 // ==================================================================================================================
