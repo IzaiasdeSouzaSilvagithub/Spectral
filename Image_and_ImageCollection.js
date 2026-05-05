@@ -226,10 +226,10 @@ var medianaComNDVI = L9_mediana.addBands(ndviMediana.rename('NDVI'));
 print('AGEM MEDIANA COM BANDA NDVI:', medianaComNDVI);
 
 
+// ==================================================================================================================
 // 13. VISUALIZAR O NDVI DA MEDIANA NO MAPA
-// ----------------------------------------------------------------------------------------------------------------
+// ==================================================================================================================
 // Configuração de visualização para o NDVI
-
 var vizNDVI_Mediana = {
   min: -0.2,
   max: 0.8,
