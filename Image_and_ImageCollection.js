@@ -244,4 +244,4 @@ var vizNDVI_Mediana = {
 };
 
 // Adicionar camada do NDVI da mediana
-Map.addLayer(medianaComNDVI.select('NDVI').clip(study_area), vizNDVI_Mediana, '🌿 NDVI DA MEDIANA', true);
+Map.addLayer(medianaComNDVI.select('NDVI').clip(study_area), vizNDVI_Mediana, 'NDVI DA MEDIANA', true);
