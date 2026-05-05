@@ -57,7 +57,7 @@ print('LISTA DE DATAS DISPONÍVEIS:', L9.aggregate_array('DATE_ACQUIRED'));
 
 
 // ==================================================================================================================
-// 7. ESCOLHER UMA IMAGEM ESPECÍFICA DA COLEÇÃO PELO ID
+// 6. ESCOLHER UMA IMAGEM ESPECÍFICA DA COLEÇÃO PELO ID
 // ==================================================================================================================
 // Substitua o ID abaixo por um que apareceu no catálogo acima!
 var id_escolhido = 'LANDSAT/LC09/C02/T1_L2/LC09_222071_20260310';  // <-- COLE UM ID AQUI
@@ -71,7 +71,7 @@ print('BANDAS DISPONÍVEIS:', imagem.bandNames());
 
 
 // ==================================================================================================================
-// 9. APLICAR FATORES DE ESCALA (IMPORTANTE PARA VALORES REAIS!)
+// 7. APLICAR FATORES DE ESCALA (IMPORTANTE PARA VALORES REAIS!)
 // ==================================================================================================================
 // Os valores brutos do Landsat 9 precisam ser convertidos para reflectância real
 // Fórmula: Reflectância = (valor_bruto * 0.0000275) - 0.2
@@ -92,7 +92,7 @@ print('IMAGEM APÓS FATORES DE ESCALA:', imagemProcessada);
 
 
 // ==================================================================================================================
-// 10. CALCULAR NDVI PARA A IMAGEM
+// 8. CALCULAR NDVI PARA A IMAGEM
 // ==================================================================================================================
 // NDVI = (NIR - VERMELHO) / (NIR + VERMELHO)
 // NIR = Banda 5 (SR_B5) | VERMELHO = Banda 4 (SR_B4)
@@ -109,10 +109,10 @@ print('NDVI CALCULADO:', ndvi);
 
 
 // ==================================================================================================================
-// 12. VISUALIZAR AS IMAGENS NO MAPA
+// 9. VISUALIZAR AS IMAGENS NO MAPA
 // ==================================================================================================================
 
-// 12.1 Configuração de visualização para COR VERDADEIRA (RGB)
+// 9.1 Configuração de visualização para COR VERDADEIRA (RGB)
 var vizTrueColor = {
   bands: ['SR_B4', 'SR_B3', 'SR_B2'],  // Vermelho, Verde, Azul
   min: 0.0,
@@ -120,7 +120,7 @@ var vizTrueColor = {
   gamma: 1.2
 };
 
-// 12.2 Configuração para FALSA COR (NIR - útil para vegetação)
+// 9.2 Configuração para FALSA COR (NIR - útil para vegetação)
 var vizFalsaCor = {
   bands: ['SR_B5', 'SR_B4', 'SR_B3'],  // NIR, Vermelho, Verde
   min: 0.0,
@@ -128,7 +128,7 @@ var vizFalsaCor = {
   gamma: 1.2
 };
 
-// 12.3 Configuração para NDVI
+// 9.3 Configuração para NDVI
 var vizNDVI = {
   min: -0.2,
   max: 0.8,
@@ -155,7 +155,7 @@ Map.addLayer(mascaraVegetacao.clip(study_area), vizTrueColor, 'VEGETAÇÃO DENSA
 
 
 // ==================================================================================================================
-// 13. ESTATÍSTICAS DO NDVI NA ROI
+// 10. ESTATÍSTICAS DO NDVI NA ROI
 // ==================================================================================================================
 // Calcular métricas resumidas do NDVI dentro da ROI
 var statsNDVI = imagemComNDVI.select('NDVI').reduceRegion({
