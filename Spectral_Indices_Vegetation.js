@@ -37,16 +37,29 @@ Map.addLayer(study_area, {color: 'yellow'}, 'ÁREA DE ESTUDO (ROI)', false);
 // ==================================================================================================================
 // 3. FUNÇÃO PARA REMOVER NUVENS (SENTINEL-2)
 // ==================================================================================================================
-/* IMPORTANTE: A banda MSK_CLASSI_CIRRUS do Sentinel-2 contém informações sobre nuvens e cirrus.
-   Valor 0 indica ausência de nuvens/cirrus.
-   A divisão por 10000 converte os valores para reflectância (0-1). */
+/* IMPORTANTE: Para imagens de 2026, use a banda QA60 (reconstruída e disponível)
+   
+   A banda QA60 contém informações sobre nuvens e cirrus:
+   - Bit 10: Nuvens opacas (Opaque clouds)
+   - Bit 11: Nuvens Cirrus (Cirrus clouds)
+   
+   Valor 0 no bit indica ausência de nuvens.
+   A divisão por 10000 converte os valores para reflectância (0-1).
+   
+   NOTA: MSK_CLASSI_CIRRUS está mascarado (não disponível) para o período 2022-2024,
+   mas para 2026 a QA60 é a banda correta a ser utilizada!
+   ================================================================================================================== */
 
 function removeClouds(image) {
-  var qa = image.select('MSK_CLASSI_CIRRUS');
-  var cloudBitMask = 1 << 10;  // Bit 10 para nuvens
-  var cirrusBitMask = 1 << 11; // Bit 11 para cirrus
+  // Selecionar a banda QA60 (disponível para 2026)
+  var qa = image.select('QA60');
+  
+  // Bits 10 e 11 representam nuvens e cirrus, respectivamente
+  var cloudBitMask = 1 << 10;   // Bit 10: Nuvens opacas
+  var cirrusBitMask = 1 << 11;  // Bit 11: Nuvens cirrus
   
   // Criar máscara: TRUE onde NÃO há nuvens E NÃO há cirrus
+  // Ou seja, ambos os bits devem ser 0
   var mask = qa.bitwiseAnd(cloudBitMask).eq(0)
               .and(qa.bitwiseAnd(cirrusBitMask).eq(0));
   
@@ -58,7 +71,7 @@ function removeClouds(image) {
 // ==================================================================================================================
 // 4. ACESSAR E FILTRAR A COLEÇÃO SENTINEL-2
 // ==================================================================================================================
-var sentinel2 = ee.ImageCollection("COPERNICUS/S2_SR")
+var sentinel2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
     .filterDate('2026-01-25', '2026-05-30')      // Período de interesse
     .filterBounds(study_area)                     // Interseção com a ROI
     .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 10))  // Máximo de 10% de nuvens
