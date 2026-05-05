@@ -193,14 +193,14 @@ print('BANDAS DISPONÍVEIS:', allIndices.bandNames());
 // ==================================================================================================================
 // 8. PALETAS DE CORES PARA VISUALIZAÇÃO
 // ==================================================================================================================
-// Paleta geral para índices de vegetação (verde)
+// Paleta geral para índices de vegetação
 var vegPalette = [
   '#FFFFFF', '#CE7E45', '#DF923D', '#F1B555', '#FCD163', '#99B718',
   '#74A901', '#66A000', '#529400', '#3E8601', '#207401', '#056201',
   '#004C00', '#023B01', '#012E01', '#011D01', '#011301', '#011303'
 ];
 
-// Paleta para NDWI (água - azul)
+// Paleta para NDWI
 var waterPalette = [
   '#b5e22e', '#3ae237', '#86e26f', '#3ff38f', '#3be285',
   '#32d3ef', '#30c8e2', '#269db1', '#307ef3', '#235cb1',
@@ -208,14 +208,14 @@ var waterPalette = [
   '#040281', '#040274'
 ];
 
-// Paleta para NBR (queimadas - vermelho para áreas queimadas)
+// Paleta para NBR
 var firePalette = [
   '#ff0000', '#ff500d', '#ff6e08', '#ff8b13', '#ffb613',
   '#ffd611', '#fff705', '#d6e21f', '#b5e22e', '#3ae237', '#3ff38f',
   '#32d3ef', '#30c8e2', '#269db1', '#307ef3', '#235cb1'
 ];
 
-// Paleta para NDMI (umidade - azul para úmido, vermelho para seco)
+// Paleta para NDMI
 var moisturePalette = [
   '#ff0000', '#ff500d', '#ff6e08', '#ff8b13', '#ffb613',
   '#ffd611', '#fff705', '#d6e21f', '#b5e22e', '#3ae237', '#3ff38f',
